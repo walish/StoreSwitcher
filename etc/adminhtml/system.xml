@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="geoip" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>GeoIP</label>
+            <tab>general</tab>
+            <resource>SM_GeoIP::geoip</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" >
+                <label>General Configuration</label>
+                <field id="file_path" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>GeoIP Database Directory</label>
+                    <comment>The base directory in which the GeoIP database will be stored</comment>
+                    <source_model>Smart\StoreSwitcher\Model\GeoIP\Config\Source\Path</source_model>
+                </field>
+                <field id="synchronize" translate="button_label comment" sortOrder="62" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <button_label>Synchronize Database</button_label>
+                    <frontend_model>Smart\StoreSwitcher\Block\Adminhtml\System\Config\Synchronize</frontend_model>
+                    <comment>If you synchronize GeoIP database too often you may be banned for several hours.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,82 @@
+<?php
+/**
+ * @see \SM\GeoIP\Block\Adminhtml\System\Config\Synchronize
+ */
+?>
+
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function (jQuery) {
+        var u;
+
+        function enableSyncButton() {
+            Form.Element.enable('synchronize_button');
+            $('synchronize_button').removeClassName('disabled');
+        }
+
+        function disableSyncButton() {
+            Form.Element.disable('synchronize_button');
+            $('synchronize_button').addClassName('disabled');
+        }
+
+
+        function checkStatus() {
+            u = new Ajax.PeriodicalUpdater('', '<?php /* @escapeNotVerified */ echo $block->getAjaxStatusUpdateUrl() ?>', {
+                method: 'get',
+                frequency: 1,
+                loaderArea: false,
+                onSuccess: function (transport) {
+                    try {
+                        var percent = parseInt(transport.responseText);
+                        if (percent == 100) {
+                            u.stop();
+                            $('sync_span').addClassName('no-display');
+                            enableSyncButton();
+                        } else {
+                            $('sync_message_span').update(percent + '%');
+                        }
+                    } catch (e) {
+                    }
+                }
+            });
+        }
+
+        jQuery('#synchronize_button').click(function () {
+            disableSyncButton();
+
+            $('sync_span_error').addClassName('no-display');
+            $('sync_span').removeClassName('no-display');
+            $('sync_message_span').update('0%');
+
+            new Ajax.Request('<?php echo $block->getAjaxSyncUrl() ?>', {
+                loaderArea: false,
+                asynchronous: true,
+                onSuccess: function (transport) {
+                    var response = eval('(' + transport.responseText + ')');
+                    if (response.status != 'success') {
+                        $('sync_span').addClassName('no-display');
+                        $('sync_span_error').removeClassName('no-display').update(response.message);
+                    }
+                }
+            });
+
+            window.setTimeout(checkStatus(), 1000);
+        });
+
+    });
+</script>
+
+
+<?php echo $block->getButtonHtml() ?>
+
+<span class="sync-indicator no-display" id="sync_span">
+    <img alt="Synchronize" style="margin:0 5px" src="<?php /* @escapeNotVerified */
+    echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+    <span id="sync_message_span"></span>
+    <span class="no-display error" id="sync_span_error"></span>
+</span>
+
+
+
