@@ -70,4 +70,9 @@ abstract class AbstractGeoIP
     {
         return $this->_localArchive;
     }
+
+    public function getLocalFilePath()
+    {
+        return $this->_localFile;
+    }
 }

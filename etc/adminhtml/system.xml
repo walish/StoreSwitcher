@@ -6,7 +6,7 @@
             <label>GeoIP</label>
             <tab>general</tab>
             <resource>SM_GeoIP::geoip</resource>
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" >
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General Configuration</label>
                 <field id="file_path" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>GeoIP Database Directory</label>
@@ -17,6 +17,13 @@
                     <button_label>Synchronize Database</button_label>
                     <frontend_model>Smart\StoreSwitcher\Block\Adminhtml\System\Config\Synchronize</frontend_model>
                     <comment>If you synchronize GeoIP database too often you may be banned for several hours.</comment>
+                </field>
+            </group>
+            <group id="redirect" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Redirect Configuration</label>
+                <field id="redirect_config" translate="label" sortOrder="10" type="select" showInDefault="1">
+                    <label>Redirect Configuration</label>
+                    <frontend_model>Smart\StoreSwitcher\Block\Adminhtml\System\Config\Redirect</frontend_model>
                 </field>
             </group>
         </section>

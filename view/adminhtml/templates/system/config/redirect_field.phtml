@@ -1,0 +1,81 @@
+<?php
+/**
+ * @var \Smart\StoreSwitcher\Block\Adminhtml\System\Config\Redirect $block
+ */
+
+$countryOptions = $block->getCountryOptions();
+$storeOptions = $block->getStoreOptions();
+
+//Walish
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info($storeOptions);
+
+?>
+<div class="grid control">
+    <input id="<?php echo $block->getFieldName() ?>" type="hidden"/>
+
+    <table cellspacing="0" class="admin__control-table-data" id="<?php echo $block->suffixId('cfgTable') ?>"
+           style="width: 600px">
+        <thead>
+        <col width="300" />
+        <tr>
+            <th><?php echo __('Countries') ?></th>
+            <th><?php echo __('Store') ?></th>
+            <th><?php echo __('Action') ?></th>
+        </tr>
+        </thead>
+        <tbody id="config-container">
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" class="a-left">
+                <div class="left">
+                    <button type="button" id="addBtn">
+                        <span><?php echo __('Add New') ?></span></button>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div id="customer-container">
+    <script id="customer-template" type="text/x-magento-template">
+        <tr>
+            <td>
+                <select class="select multiselect admin__control-multiselect" size="10" multiple>
+                    <?php
+                    if (count($countryOptions) > 0) {
+                        foreach ($countryOptions as $countryOption) {
+                            echo '<option value="' . $countryOption['value'] . '">' . $countryOption['label'] . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+            </td>
+            <td>
+                <select>
+                    <option>aa</option>
+                </select></td>
+            <td>
+                <button type="button" class="scalable delete"><span>Delete</span></button>
+            </td>
+        </tr>
+    </script>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Smart_StoreSwitcher/js/form": {}
+    }
+}
+
+
+
+
+</script>
+
