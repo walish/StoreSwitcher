@@ -24,6 +24,7 @@
                 <field id="redirect_config" translate="label" sortOrder="10" type="select" showInDefault="1">
                     <label>Redirect Configuration</label>
                     <frontend_model>Smart\StoreSwitcher\Block\Adminhtml\System\Config\Redirect</frontend_model>
+                    <backend_model>Smart\StoreSwitcher\Model\System\StoreSwitcher\RedirectConfig</backend_model>
                 </field>
             </group>
         </section>

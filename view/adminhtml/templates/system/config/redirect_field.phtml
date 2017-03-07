@@ -6,12 +6,6 @@
 $countryOptions = $block->getCountryOptions();
 $storeOptions = $block->getStoreOptions();
 
-//Walish
-$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info($storeOptions);
-
 ?>
 <div class="grid control">
     <input id="<?php echo $block->getFieldName() ?>" type="hidden"/>
@@ -19,7 +13,7 @@ $logger->info($storeOptions);
     <table cellspacing="0" class="admin__control-table-data" id="<?php echo $block->suffixId('cfgTable') ?>"
            style="width: 600px">
         <thead>
-        <col width="300" />
+        <col width="300"/>
         <tr>
             <th><?php echo __('Countries') ?></th>
             <th><?php echo __('Store') ?></th>
@@ -34,7 +28,7 @@ $logger->info($storeOptions);
             <td colspan="3" class="a-left">
                 <div class="left">
                     <button type="button" id="addBtn">
-                        <span><?php echo __('Add New') ?></span></button>
+                        <span><?php echo __('Add New Configuration') ?></span></button>
                 </div>
             </td>
         </tr>
@@ -42,40 +36,53 @@ $logger->info($storeOptions);
     </table>
 </div>
 
-<div id="customer-container">
-    <script id="customer-template" type="text/x-magento-template">
-        <tr>
-            <td>
-                <select class="select multiselect admin__control-multiselect" size="10" multiple>
-                    <?php
-                    if (count($countryOptions) > 0) {
-                        foreach ($countryOptions as $countryOption) {
-                            echo '<option value="' . $countryOption['value'] . '">' . $countryOption['label'] . '</option>';
+
+<script id="config-template" type="text/x-magento-template">
+    <tr id="config_row_<%- data.row_number %>">
+        <td>
+            <select name="<?php echo $block->getFieldName() ?>[<%- data.row_number %>][countries][]"
+                    id="countries_<%- data.row_number %>"
+                    class="select multiselect admin__control-multiselect" size="10" multiple>
+                <?php
+                if (count($countryOptions) > 0) {
+                    foreach ($countryOptions as $countryOption) {
+                        echo '<option value="' . $countryOption['value'] . '">' . $countryOption['label'] . '</option>';
+                    }
+                }
+                ?>
+            </select>
+        </td>
+        <td>
+            <select class="select admin__control-select" id="store_<%- data.row_number %>"
+                    name="<?php echo $block->getFieldName() ?>[<%- data.row_number %>][store]">
+                <?php
+                if (count($storeOptions) > 0) {
+                    foreach ($storeOptions as $website) {
+                        echo '<optgroup label="' . str_replace(' ', '&nbsp;',
+                                $website['label']) . '"></optgroup>';
+                        foreach ($website['value'] as $group) {
+                            echo '<optgroup label="' . str_replace(' ', '&nbsp;',
+                                    $group['label']) . '"></optgroup>';
+                            foreach ($group['value'] as $store) {
+                                echo '<option value="' . $store['value'] . '">' . str_replace(' ', '&nbsp;',
+                                        $store['label']) . '</option>';
+                            }
                         }
                     }
-                    ?>
-                </select>
-            </td>
-            <td>
-                <select>
-                    <option>aa</option>
-                </select></td>
-            <td>
-                <button type="button" class="scalable delete"><span>Delete</span></button>
-            </td>
-        </tr>
-    </script>
-</div>
+                } ?>
+            </select>
+        </td>
+        <td>
+            <button type="button" class="scalable delete"><span><?php echo __('Delete') ?></span></button>
+        </td>
+    </tr>
+</script>
 
 <script type="text/x-magento-init">
-{
-    "*": {
-        "Smart_StoreSwitcher/js/form": {}
+    {
+        "*": {
+            "Smart_StoreSwitcher/js/form": {"data" : <?php echo $block->getConfigData() ?>}
+        }
     }
-}
-
-
-
-
 </script>
 

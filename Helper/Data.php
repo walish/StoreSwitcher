@@ -41,9 +41,4 @@ class Data extends AbstractHelper
         gzclose($archive);
         return filesize($destination);
     }
-
-    public function getStoreOptionSelectHtml()
-    {
-
-    }
 }

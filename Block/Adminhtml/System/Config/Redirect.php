@@ -7,6 +7,8 @@ use Magento\Store\Ui\Component\Listing\Column\Store\Options;
 
 class Redirect extends \Magento\Config\Block\System\Config\Form\Field
 {
+    const GEOIP_REDIRECT_REDIRECT_CONFIG = 'geoip/redirect/redirect_config';
+
     /**
      * Countries
      *
@@ -93,5 +95,10 @@ class Redirect extends \Magento\Config\Block\System\Config\Form\Field
     public function getStoreOptions()
     {
         return $this->_storeOptions->toOptionArray();
+    }
+
+    public function getConfigData()
+    {
+        return $this->_scopeConfig->getValue(self::GEOIP_REDIRECT_REDIRECT_CONFIG);
     }
 }
