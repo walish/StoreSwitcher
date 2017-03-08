@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="geoip" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="0" showInStore="0">
+        <section id="geoip" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
             <class>separator-top</class>
             <label>GeoIP</label>
             <tab>general</tab>
@@ -19,9 +19,9 @@
                     <comment>If you synchronize GeoIP database too often you may be banned for several hours.</comment>
                 </field>
             </group>
-            <group id="redirect" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="redirect" translate="label" sortOrder="20" showInDefault="0" showInWebsite="1" showInStore="0">
                 <label>Redirect Configuration</label>
-                <field id="redirect_config" translate="label" sortOrder="10" type="select" showInDefault="1">
+                <field id="redirect_config" translate="label" sortOrder="10" type="select" showInDefault="0" showInWebsite="1">
                     <label>Redirect Configuration</label>
                     <frontend_model>Smart\StoreSwitcher\Block\Adminhtml\System\Config\Redirect</frontend_model>
                     <backend_model>Smart\StoreSwitcher\Model\System\StoreSwitcher\RedirectConfig</backend_model>

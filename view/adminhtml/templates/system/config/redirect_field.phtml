@@ -81,7 +81,9 @@ $storeOptions = $block->getStoreOptions();
 <script type="text/x-magento-init">
     {
         "*": {
-            "Smart_StoreSwitcher/js/form": {"data" : <?php echo $block->getConfigData() ?>}
+            "Smart_StoreSwitcher/js/form": {
+                "data" : <?php echo $block->getConfigData()? $block->getConfigData() : json_encode([]) ?>
+            }
         }
     }
 </script>

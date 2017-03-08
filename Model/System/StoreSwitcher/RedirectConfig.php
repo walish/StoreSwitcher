@@ -29,7 +29,11 @@ class RedirectConfig extends Value
         if (is_array($values)) {
             $array = [];
             foreach ($values as $value) {
-                $array[$value['store']] = $value['countries'];
+                if (array_key_exists($value['store'], $array)) {
+                    $array[$value['store']] = array_merge($array[$value['store']], $value['countries']);
+                } else {
+                    $array[$value['store']] = $value['countries'];
+                }
             }
 
             $return = json_encode($array);

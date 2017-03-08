@@ -99,6 +99,7 @@ class Redirect extends \Magento\Config\Block\System\Config\Form\Field
 
     public function getConfigData()
     {
-        return $this->_scopeConfig->getValue(self::GEOIP_REDIRECT_REDIRECT_CONFIG);
+        return $this->_scopeConfig->getValue(self::GEOIP_REDIRECT_REDIRECT_CONFIG,
+            \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE);
     }
 }
